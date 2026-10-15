@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>
+      Modelo conforme
+    </title>
+    <link rel="stylesheet" href="modelo-conforme-r1.css">
+  </head>
+  <body>
+    <header>
+      <div>
+        <div class="eyebrow">
+          Caderno de explorações · modelo conforme
+        </div>        
+      </div>
+      <span class="badge">Modelo conforme · R¹</span>
+    </header>
+    <main>
+      <section class="scene-panel" aria-label="Visualização interativa">
+        <div class="topbar">
+          <div class="toggles">
+            <label><input id="cone" type="checkbox" checked>Cone nulo</label>
+  <label><input id="plane" type="checkbox" checked>Plano</label>
+  <label><input id="guides" type="checkbox" checked>Guias dos pontos</label>
+  <label><input id="show-product" type="checkbox">Produto interno</label>
+  <label><input id="lower" type="checkbox">Folha oposta</label>
+          </div>
+          <div class="buttons">
+            <button id="zoom-in" aria-label="Aproximar">＋</button><button id="zoom-out" aria-label="Afastar">−</button><button id="front">Vista da parábola</button><button id="reset">Vista 3D</button>
+          </div>
+        </div>
+        <div class="viewport">
+          <canvas id="scene" tabindex="0" aria-label="Cena 3D. Arraste para rotacionar; use a roda para zoom. Passe o mouse sobre o eixo x1 para selecionar b. A é o representante de a, B é o de b e Q está na tangente em A. O segmento QB é paralelo a e infinito. Com o foco aqui, use as setas para girar, mais ou menos para zoom e Home para restaurar.">
+          </canvas>
+          <div class="scene-note">
+            Arraste para girar · role para zoom · passe sobre o eixo x₁ para mover b
+          </div>
+        </div>
+        <div id="product-legend" class="legend product-legend" hidden>
+          <span class="legend-item">
+            <i class="legend-mark mark-a" aria-hidden="true"></i>
+            <span>Ponto A e sua tangente</span>
+          </span>
+          <span class="legend-item">
+            <i class="legend-mark mark-b" aria-hidden="true"></i>
+            <span>Ponto B na parábola</span>
+          </span>
+          <span class="legend-item">
+            <i class="legend-mark mark-gap" aria-hidden="true"></i>
+            <span>Segmento QB <span class="legend-formula">(Δ e<sub>∞</sub>)</span></span>
+          </span>
+          <span class="legend-item">
+            <i class="legend-mark mark-distance" aria-hidden="true"></i>
+            <span>Distância na reta <span class="legend-formula">(|b − a|)</span></span>
+          </span>
+        </div>
+        <div id="basic-legend" class="legend">
+          <span><i class="dot"></i>Ponto x na reta</span><span><i class="dot teal"></i>Representante <span class="hat" aria-label="x com chapéu">x</span> na parábola</span><span><i class="dot" style="background:#bf8833"></i>Plano x₅ − x₄ = 1</span>
+        </div>
+        <p class="instructions">
+          No celular: arraste com um dedo e aproxime ou afaste dois dedos. O controle abaixo também seleciona x₁ quando o eixo estiver visto de ponta.
+        </p>
+        <div class="ruler">
+          <div class="ruler-title">
+            <strong>Mova b na reta original</strong><label>Trecho
+            <select id="extent" aria-label="Intervalo de x1">
+              <option value="1">
+                [−1, 1]
+              </option>
+              <option value="2" selected>
+                [−2, 2]
+              </option>
+              <option value="3">
+                [−3, 3]
+              </option>
+            </select>
+            </label>
+          </div>
+          <input id="parameter" type="range" min="-2" max="2" step="0.01" value="1" aria-label="Coordenada b na reta">
+          <div class="ticks">
+            <span id="tick-left">−2</span><span>0</span><span id="tick-right">2</span>
+          </div>
+          <div id="status">
+            A régua e o eixo azul movem b. Ajuste a no painel ao lado.
+          </div>
+        </div>
+      </section>
+      <aside>
+        <div id="basic-panel">
+          <div class="selected">
+            <h2>
+              Do ponto à representação
+            </h2>
+            <div class="value-row">
+              <label for="number-basic">x<sub>1</sub> =</label><input id="number-basic" type="number" min="-2" max="2" step="0.01" value="1">
+            </div>
+          </div>
+          <div>
+            <h3>
+              Construção conforme
+            </h3>
+            <div class="formula">
+              <span class="hat" aria-label="x com chapéu">x</span> = x<sub>1</sub>e<sub>1</sub> + e<sub>0</sub> + <span style="white-space:nowrap"><span class="fraction"><span class="numerator">1</span><span class="denominator">2</span></span>x<sub>1</sub><sup>2</sup>e<sub>∞</sub></span>
+            </div>
+            <div class="small math">
+              e<sub>0</sub> = <span class="fraction"><span class="numerator">e<sub>5</sub> − e<sub>4</sub></span><span class="denominator">2</span></span> &nbsp;·&nbsp; e<sub>∞</sub> = e<sub>5</sub> + e<sub>4</sub>
+            </div>
+            <h3>
+              Coordenadas de <span class="hat" aria-label="x com chapéu">x</span> na cena
+            </h3>
+            <div class="base">
+              Base (e<sub>1</sub>, e<sub>4</sub>, e<sub>5</sub>)
+            </div>
+            <div id="diagonal" class="tuple">
+              (1; 0; 1)
+            </div>
+            <div class="small math">
+              (x<sub>1</sub>, <span class="fraction"><span class="numerator">x<sub>1</sub><sup>2</sup> − 1</span><span class="denominator">2</span></span>, <span class="fraction"><span class="numerator">x<sub>1</sub><sup>2</sup> + 1</span><span class="denominator">2</span></span>)<sup>t</sup>
+            </div>
+            <h3>
+              Coordenadas conformes de <span class="hat" aria-label="x com chapéu">x</span>
+            </h3>
+            <div class="base">
+              Base (e<sub>1</sub>, e<sub>0</sub>, e<sub>∞</sub>)
+            </div>
+            <div id="null" class="tuple">
+              (1; 1; 0,5)
+            </div>
+            <div class="small math">
+              (x<sub>1</sub>, 1, <span class="fraction"><span class="numerator">x<sub>1</sub><sup>2</sup></span><span class="denominator">2</span></span>)<sup>t</sup>
+            </div>
+            <div class="checks">
+              <div>
+                <span class="hat" aria-label="x com chapéu">x</span> · <span class="hat" aria-label="x com chapéu">x</span> = x<sub>1</sub><sup>2</sup> − 2x<sub>0</sub>x<sub>∞</sub> = <span id="null-check">0</span>
+              </div>
+              <div>
+                x<sub>0</sub> = <span id="plane-check">1</span>
+              </div>
+            </div>
+          </div>          
+        </div>
+        <div id="product-panel" hidden>
+          <div class="selected">
+            <h2>
+              Escolha dois pontos
+            </h2>
+            <div class="pair-controls">
+              <div class="value-row">
+                <label class="point-a" for="number-a">a =</label><input id="number-a" type="number" min="-2" max="2" step="0.01" value="-0.5">
+              </div>
+              <input id="parameter-a" type="range" min="-2" max="2" step="0.01" value="-0.5" aria-label="Coordenada a na reta">
+              <div class="value-row">
+                <label class="point-b" for="number">b =</label><input id="number" type="number" min="-2" max="2" step="0.01" value="1">
+              </div>
+            </div>
+            <div class="preset-buttons">
+              <button id="swap">Trocar a e b</button><button id="coincide">Fazer b = a</button>
+            </div>
+          </div>
+          <div class="readout" role="status" aria-live="polite" aria-atomic="true">
+            <p>
+              Distância na reta: <b id="distance"></b>
+            </p>
+            <p>
+              Produto <span class="hat" aria-label="a com chapéu">a</span> · <span class="hat" aria-label="b com chapéu">b</span>: <b id="product"></b>
+            </p>
+            <p>
+              <strong>Δ = −<span class="hat" aria-label="a com chapéu">a</span> · <span class="hat" aria-label="b com chapéu">b</span> = <span id="gap"></span></strong>
+            </p>
+            <p>
+              Distância pelo produto: <span class="math">√(−2 <span class="hat" aria-label="a com chapéu">a</span> · <span class="hat" aria-label="b com chapéu">b</span>) = <span id="distance-calculation"></span> = <b id="distance-product"></b> = |b − a|</span>
+            </p>
+            <p class="small" id="coincident-note">
+            </p>
+            <details class="product-details">
+              <summary>Detalhes</summary>
+              <p>Na base (e<sub>1</sub>, e<sub>0</sub>, e<sub>∞</sub>), o produto conforme é u · v = u<sub>1</sub>v<sub>1</sub> − u<sub>0</sub>v<sub>∞</sub> − u<sub>∞</sub>v<sub>0</sub>.</p>
+              <p>Como <span class="hat" aria-label="a com chapéu">a</span> = (a, 1, <span class="fraction"><span class="numerator">a<sup>2</sup></span><span class="denominator">2</span></span>)<sup>t</sup> e <span class="hat" aria-label="b com chapéu">b</span> = (b, 1, <span class="fraction"><span class="numerator">b<sup>2</sup></span><span class="denominator">2</span></span>)<sup>t</sup>:</p>
+              <div class="math detail-equations">
+                <div><span class="hat" aria-label="a com chapéu">a</span> · <span class="hat" aria-label="b com chapéu">b</span> = ab − <span class="fraction"><span class="numerator">b<sup>2</sup></span><span class="denominator">2</span></span> − <span class="fraction"><span class="numerator">a<sup>2</sup></span><span class="denominator">2</span></span></div>
+                <div>= −<span class="fraction"><span class="numerator">a<sup>2</sup> − 2ab + b<sup>2</sup></span><span class="denominator">2</span></span> = −<span class="fraction"><span class="numerator">(b − a)<sup>2</sup></span><span class="denominator">2</span></span>.</div>
+              </div>
+              <p>A tangente em A tem x<sub>∞</sub> = ax<sub>1</sub> − <span class="fraction"><span class="numerator">a<sup>2</sup></span><span class="denominator">2</span></span>. Em x<sub>1</sub> = b, temos Q = (b, 1, ab − <span class="fraction"><span class="numerator">a<sup>2</sup></span><span class="denominator">2</span></span>)<sup>t</sup>.</p>
+              <p>B e Q só diferem na coordenada de e<sub>∞</sub>:</p>
+              <div class="math detail-equations">
+                <div>Δ = <span class="fraction"><span class="numerator">b<sup>2</sup></span><span class="denominator">2</span></span> − (ab − <span class="fraction"><span class="numerator">a<sup>2</sup></span><span class="denominator">2</span></span>)</div>
+                <div>= <span class="fraction"><span class="numerator">(b − a)<sup>2</sup></span><span class="denominator">2</span></span> = −<span class="hat" aria-label="a com chapéu">a</span> · <span class="hat" aria-label="b com chapéu">b</span>.</div>
+                <div>B − Q = Δ e<sub>∞</sub>.</div>
+              </div>
+              <p>Assim, o segmento rosa representa o <strong>negativo do produto interno</strong>: Δ é seu coeficiente na direção e<sub>∞</sub>, e não seu comprimento euclidiano no desenho.</p>
+            </details>
+          </div>          
+        </div>
+        
+      </div>
+    </aside>
+  </main>
+  <footer>
+    Visualização local e offline · <a href="../exploracoes.pdf">Abrir o caderno em PDF</a> · <a href="../ref/J%20Comput%20Chem%20-%202026%20-%20Camargo%20-%20Conformal%20Coordinates%20for%20Molecular%20Geometry%20%20From%203D%20to%205D.pdf">Referência principal</a>
+  </footer>
+  <script src="modelo-conforme-r1.js"></script>
+</body>
+</html>

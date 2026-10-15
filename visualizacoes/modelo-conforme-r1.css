@@ -1,0 +1,590 @@
+:root {
+  color-scheme:light;
+  --paper:#f5f4ef;
+  --ink:#202b38;
+  --muted:#65717c;
+  --line:#dedfd8;
+  --blue:#335da9;
+  --teal:#007e79;
+  --gold:#bf8833
+}
+
+* {
+  box-sizing:border-box
+}
+
+body {
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif
+}
+
+header {
+  padding:25px 34px 20px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:24px
+}
+
+.eyebrow {
+  text-transform:uppercase;
+  font-size:11px;
+  letter-spacing:.15em;
+  color:var(--muted);
+  font-weight:650
+}
+
+h1 {
+  font:normal clamp(25px,3vw,36px)/1.2 Georgia,serif;
+  margin:6px 0
+}
+
+header p {
+  margin:5px 0 0;
+  color:var(--muted);
+  font-size:13px
+}
+
+.badge {
+  white-space:nowrap;
+  padding:7px 12px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  font-size:12px;
+  color:var(--muted)
+}
+
+main {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 320px;
+  min-height:calc(100vh - 135px)
+}
+
+.scene-panel {
+  min-width:0;
+  padding:22px 26px
+}
+
+.topbar {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:10px
+}
+
+.toggles {
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap;
+  font-size:12px
+}
+
+label {
+  cursor:pointer
+}
+
+input[type=checkbox] {
+  accent-color:var(--teal);
+  vertical-align:middle;
+  margin:0 5px 0 0
+}
+
+button {
+  font:inherit;
+  cursor:pointer;
+  color:var(--ink);
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:7px;
+  padding:7px 11px;
+  font-size:12px
+}
+
+button:hover {
+  border-color:var(--teal);
+  background:#f0f9f7
+}
+
+button:focus-visible,input:focus-visible,canvas:focus-visible {
+  outline:3px solid #77b6df;
+  outline-offset:3px
+}
+
+.buttons {
+  display:flex;
+  gap:5px
+}
+
+.viewport {
+  position:relative;
+  border:1px solid var(--line);
+  border-radius:12px;
+  overflow:hidden;
+  background:#fcfcf9
+}
+
+.viewport canvas {
+  display:block;
+  width:100%;
+  height:clamp(420px,65vh,790px);
+  touch-action:none;
+  cursor:grab
+}
+
+.viewport canvas.dragging {
+  cursor:grabbing
+}
+
+.viewport canvas.selecting {
+  cursor:crosshair
+}
+
+.scene-note {
+  position:absolute;
+  left:15px;
+  top:12px;
+  font-size:11px;
+  color:var(--muted);
+  pointer-events:none;
+  background:#fcfcf9d9;
+  padding:4px 6px;
+  border-radius:4px
+}
+
+.legend {
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+  padding:12px 2px;
+  font-size:12px;
+  color:var(--muted)
+}
+
+.dot {
+  display:inline-block;
+  width:8px;
+  height:8px;
+  margin-right:6px;
+  border-radius:50%;
+  background:var(--blue)
+}
+
+.dot.teal {
+  background:var(--teal)
+}
+
+.instructions {
+  color:var(--muted);
+  font-size:12px;
+  margin:0
+}
+
+.ruler {
+  margin-top:20px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:15px 18px
+}
+
+.ruler-title {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:13px
+}
+
+.ruler-title strong {
+  color:var(--blue);
+  font-weight:600
+}
+
+.ruler input[type=range] {
+  display:block;
+  width:100%;
+  margin:16px 0 3px;
+  accent-color:var(--blue);
+  cursor:crosshair
+}
+
+.ticks {
+  display:flex;
+  justify-content:space-between;
+  font-size:11px;
+  color:var(--muted)
+}
+
+aside {
+  background:#fff;
+  border-left:1px solid var(--line);
+  padding:24px
+}
+
+h2 {
+  font:normal 23px Georgia,serif;
+  margin:0 0 15px
+}
+
+h3 {
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin:23px 0 8px
+}
+
+.math {
+  font-family:Georgia,serif
+}
+
+.formula {
+  font:19px/1.9 Georgia,serif
+}
+
+.formula sub,.formula sup {
+  font-size:.65em
+}
+
+.selected {
+  border-bottom:1px solid var(--line);
+  padding-bottom:20px
+}
+
+.value-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center
+}
+
+.value-row label {
+  font:22px Georgia,serif
+}
+
+.value-row input {
+  width:115px;
+  padding:8px 10px;
+  border:1px solid var(--line);
+  border-radius:7px;
+  text-align:right;
+  font:18px Georgia,serif;
+  color:var(--blue)
+}
+
+.tuple {
+  font:19px/1.7 Georgia,serif;
+  font-variant-numeric:tabular-nums;
+  overflow-wrap:anywhere
+}
+
+.base {
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:5px
+}
+
+.checks {
+  margin-top:18px;
+  background:#edf6f2;
+  border-radius:8px;
+  padding:11px 13px;
+  color:#276252;
+  font:15px/1.8 Georgia,serif
+}
+
+.small {
+  font-size:12px;
+  color:var(--muted)
+}
+
+.divider {
+  border-top:1px solid var(--line);
+  margin-top:20px;
+  padding-top:3px
+}
+
+select {
+  font:inherit;
+  border:1px solid var(--line);
+  border-radius:5px;
+  padding:5px;
+  background:white
+}
+
+details {
+  margin-top:22px;
+  font-size:12px;
+  color:var(--muted)
+}
+
+summary {
+  cursor:pointer;
+  color:var(--ink)
+}
+
+details p {
+  margin:8px 0
+}
+
+footer {
+  padding:14px 26px;
+  border-top:1px solid var(--line);
+  font-size:11px;
+  color:var(--muted)
+}
+
+footer a {
+  color:var(--blue)
+}
+
+#status {
+  min-height:18px;
+  font-size:11px;
+  color:var(--muted);
+  margin-top:8px
+}
+
+@media(max-width:880px) {
+  main {
+    grid-template-columns:1fr
+  }
+
+  aside {
+    border-left:0;
+    border-top:1px solid var(--line);
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0 25px
+  }
+
+  .selected {
+    grid-column:1/-1
+  }
+
+  header {
+    padding:20px
+  }
+
+  .scene-panel {
+    padding:16px
+  }
+
+  .badge {
+    display:none
+  }
+
+  .viewport canvas {
+    height:55vh;
+    min-height:360px
+  }
+
+}
+
+@media(max-width:500px) {
+  aside {
+    display:block
+  }
+
+  .toggles {
+    gap:10px
+  }
+
+  .topbar {
+    align-items:flex-start
+  }
+
+  header p {
+    max-width:32ch
+  }
+
+  .formula {
+    font-size:18px
+  }
+
+}
+
+.pair-controls {
+  display:grid;
+  gap:12px
+}
+
+.pair-controls input[type=range] {
+  width:100%;
+  accent-color:#c47b20
+}
+
+.point-a {
+  color:#b46a12!important
+}
+
+.point-b {
+  color:#007e79!important
+}
+
+.readout {
+  padding:14px;
+  background:#faf3f7;
+  border:1px solid #ead9e2;
+  border-radius:9px;
+  margin-top:16px
+}
+
+.readout p {
+  margin:6px 0
+}
+
+.readout strong {
+  color:#ad3d75
+}
+
+.preset-buttons {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px
+}
+
+.formula {
+  font-size:17px
+}
+
+.buttons {
+  flex-wrap:wrap
+}
+
+.selected h2 {
+  font-size:22px
+}
+
+.legend {
+  gap:12px
+}
+
+.small a {
+  color:var(--blue)
+}
+
+[hidden] {
+  display:none!important
+}
+
+.hat {
+  display:inline-block;
+  position:relative;
+  font-family:Georgia,serif;
+  font-style:italic;
+  line-height:1.1;
+  margin-inline:.06em
+}
+
+.hat::before {
+  content:"";
+  position:absolute;
+  left:50%;
+  top:-.16em;
+  width:.34em;
+  height:.34em;
+  border-top:.065em solid currentColor;
+  border-left:.065em solid currentColor;
+  transform:translateX(-50%) rotate(45deg)
+}
+
+.product-legend {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 24px;
+  padding: 16px 2px;
+  overflow-x: auto;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.legend-mark {
+  display: inline-block;
+  flex: 0 0 22px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--legend-color);
+}
+
+.mark-a { --legend-color: #c47b20; }
+.mark-b { --legend-color: #007e79; }
+.mark-gap { --legend-color: #ad3d75; }
+.mark-distance { --legend-color: #335da9; }
+
+.legend-formula {
+  white-space: nowrap;
+  font-family: Georgia, serif;
+}
+
+
+.formula sub,
+.math sub,
+#basic-panel .base sub,
+#basic-panel .checks sub,
+#basic-panel .value-row sub {
+  font-size: 0.7em;
+  line-height: 0;
+  vertical-align: -0.3em;
+}
+
+.formula sup,
+.math sup,
+#basic-panel .checks sup {
+  font-size: 0.7em;
+  line-height: 0;
+  vertical-align: 0.5em;
+}
+
+.fraction {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 1.25;
+  margin: 0.15em 0.12em;
+  white-space: nowrap;
+}
+
+.fraction .numerator {
+  padding: 0.1em 0.18em 0.2em;
+  border-bottom: 1px solid currentColor;
+}
+
+.fraction .denominator {
+  padding: 0.15em 0.18em 0;
+}
+
+.product-details {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #ead9e2;
+  line-height: 1.7;
+}
+
+.product-details summary {
+  font-weight: 600;
+}
+
+.product-details sub,
+.product-details sup {
+  font-size: 0.7em;
+  line-height: 0;
+}
+
+.detail-equations {
+  margin: 10px 0;
+  font-size: 15px;
+  line-height: 2;
+}
